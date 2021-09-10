@@ -12,17 +12,16 @@ before_install:
   - gcloud components update kubectl
   - gcloud auth activate-service-account --key-file service-account.json
   - gcloud config set project northern-music-325517
-  - gcloud config set compute/zone asia-south1-a
+  - gloud config set compute/zone asia-south1-a
   - gcloud container clusters get-credentials multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t ajith2234/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true stephengrider/react-test npm test
+  - docker run -e CI=true ajith2234/react-test npm test
 
 deploy:
   provider: script
   script: bash ./deploy.sh
   on:
     branch: master
-
